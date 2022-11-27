@@ -59,6 +59,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  votes         Vote[]
 }
 
 model VerificationToken {
@@ -68,3 +69,38 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Vote {
+  id           String   @id @default(cuid())
+  article      Article  @relation(fields: [articleId], references: [id])
+  articleId    String
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  vote         Boolean
+}
+
+model DailyTopArticles {
+  id         String    @id @default(cuid())
+  date       DateTime  @default(now()) //@db.Date() 
+  rank       Int
+  article    Article   @relation(fields: [articleId], references: [id])    
+  articleId  String 
+}
+
+model Article {
+  id                String   @id @default(cuid())
+  url               String
+  source            String
+  publishedDate     String
+  keywords          String
+  author            String
+  summary           String   @db.Text        
+  title             String   @db.Text
+  image             String?  
+  imageCaption      String?  @db.Text
+  likes             Int      @default(0)
+  dislikes          Int      @default(0)
+  dailyTopArticles  DailyTopArticles[]
+  vote              Vote[]
+}
+
