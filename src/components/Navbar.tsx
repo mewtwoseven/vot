@@ -16,6 +16,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
+import Link from 'next/link';
 import logo from '../../public/icons/android-chrome-192x192.png'
 
 const articles = [
@@ -86,14 +87,14 @@ export default function Example() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-secondary py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
+            <Link href="/">
               <span className="sr-only">Vote on Articles</span>
               <Image
                 className="h-8 w-auto sm:h-10"
                 src={logo}
                 alt="Vote on Articles logo"
               />
-            </a>
+            </Link>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
             <Popover.Button className="inline-flex items-center justify-center rounded-md bg-secondary p-2 text-gray-400 hover:bg-secondary hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
