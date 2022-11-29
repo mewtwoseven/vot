@@ -15,10 +15,9 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import Image from 'next/image';
 import Link from 'next/link';
-import logo from '../../public/icons/android-chrome-192x192.png'
 import Avatar from './Avatar';
+import Logo from './Logo'
 
 const articles = [
   {
@@ -88,17 +87,10 @@ export default function Example() {
       <div className="mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-secondary py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link href="/">
-              <span className="sr-only">Vote on Articles</span>
-              <Image
-                className="h-8 w-auto sm:h-10"
-                src={logo}
-                alt="Vote on Articles logo"
-              />
-            </Link>
+            <Logo />
           </div>
           <div className="-my-2 -mr-2 md:hidden">
-            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-secondary p-2 text-gray-400 hover:bg-secondary hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-secondary p-2 text-gray-400 hover:bg-secondary hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary focus:text-gray-900">
               <span className="sr-only">Open menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
@@ -109,15 +101,15 @@ export default function Example() {
                 <>
                   <Popover.Button
                     className={classNames(
-                      open ? 'text-gray-900' : 'text-gray-500',
-                      'group inline-flex items-center rounded-md bg-secondary text-base font-medium hover:text-gray-900 focus:outline-none focus:bg-primary focus:shadow hover:bg-primary'
+                      open ? 'text-gray-900' : 'text-gray-600',
+                      'group inline-flex items-center rounded-md bg-secondary text-base font-medium hover:text-gray-900 focus:outline-none focus:bg-primary focus:shadow hover:bg-primary focus:text-gray-900'
                     )}
                   >
-                    <span className='p-3'>Articles</span>
+                    <span className='px-3 py-2'>Articles</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? 'text-gray-600' : 'text-gray-400',
-                        'ml-2 h-5 w-5 group-hover:text-gray-500'
+                        'ml-2 h-5 w-5 group-hover:text-gray-600'
                       )}
                       aria-hidden="true"
                     />
@@ -144,7 +136,7 @@ export default function Example() {
                               <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
                               <div className="ml-4">
                                 <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+                                <p className="mt-1 text-sm text-gray-600">{item.description}</p>
                               </div>
                             </a>
                           ))}
@@ -169,10 +161,10 @@ export default function Example() {
               )}
             </Popover>
 
-            <Link href="/results" className="text-base font-medium text-gray-500 hover:text-gray-900 p-3 hover:bg-primary rounded-md">
+            <Link href="/results" className="text-base font-medium text-gray-600 hover:text-gray-900 px-3 py-2 hover:bg-primary rounded-md">
               Results
             </Link>
-            <Link href="/about" className="text-base font-medium text-gray-500 hover:text-gray-900 p-3 hover:bg-primary rounded-md">
+            <Link href="/about" className="text-base font-medium text-gray-600 hover:text-gray-900 px-3 py-2 hover:bg-primary rounded-md">
               About
             </Link>
 
@@ -181,15 +173,15 @@ export default function Example() {
                 <>
                   <Popover.Button
                     className={classNames(
-                      open ? 'text-gray-900' : 'text-gray-500',
-                      'group inline-flex items-center rounded-md bg-secondary text-base font-medium hover:text-gray-900 focus:outline-none focus:bg-primary hover:bg-primary'
+                      open ? 'text-gray-900' : 'text-gray-600',
+                      'group inline-flex items-center rounded-md bg-secondary text-base font-medium hover:text-gray-900 focus:outline-none focus:bg-primary hover:bg-primary focus:text-gray-900'
                     )}
                   >
-                    <span className='p-3'>More</span>
+                    <span className='px-3 py-2'>More</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? 'text-gray-600' : 'text-gray-400',
-                        'ml-2 h-5 w-5 group-hover:text-gray-500'
+                        'ml-2 h-5 w-5 group-hover:text-gray-600'
                       )}
                       aria-hidden="true"
                     />
@@ -216,14 +208,14 @@ export default function Example() {
                               <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
                               <div className="ml-4">
                                 <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+                                <p className="mt-1 text-sm text-gray-600">{item.description}</p>
                               </div>
                             </a>
                           ))}
                         </div>
                         <div className="bg-tertiary px-5 py-5 sm:px-8 sm:py-8">
                           <div>
-                            <h3 className="text-base font-medium text-gray-500">Recent Posts</h3>
+                            <h3 className="text-base font-medium text-gray-600">Recent Posts</h3>
                             <ul role="list" className="mt-4 space-y-4">
                               {recentPosts.map((post) => (
                                 <li key={post.id} className="truncate text-base">
@@ -250,12 +242,6 @@ export default function Example() {
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             <Avatar />
-            <Link
-              href="#"
-              className="ml-5 inline-flex items-center justify-center whitespace-nowrap rounded-md border-primary-700 bg-primary px-4 py-2 text-base font-medium text-white hover:bg-primary shadow-md"
-            >
-              Sign up
-            </Link>
           </div>
         </div>
       </div>
@@ -274,15 +260,10 @@ export default function Example() {
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <Image
-                    className="h-8 w-auto"
-                    fill
-                    src={logo}
-                    alt="Vote on Articles logo"
-                  />
+                  <Logo />
                 </div>
                 <div className="-mr-2">
-                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-secondary p-2 text-gray-400 hover:bg-tertiary hover:text-gray-500 focus:outline-none focus:backdrop-blur-xl">
+                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-secondary p-2 text-gray-400 hover:bg-tertiary hover:text-gray-600 focus:outline-none focus:backdrop-blur-xl focus:text-gray-900">
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>
@@ -329,7 +310,7 @@ export default function Example() {
                 >
                   Sign up
                 </Link>
-                <p className="mt-6 text-center text-base font-medium text-gray-500">
+                <p className="mt-6 text-center text-base font-medium text-gray-600">
                   Existing customer?{' '}
                   <Link href="/" className="text-secondary hover:text-primary">
                     Sign in
