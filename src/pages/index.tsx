@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import { signIn, signOut, useSession } from "next-auth/react";
-
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
