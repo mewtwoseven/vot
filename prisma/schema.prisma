@@ -72,35 +72,28 @@ model VerificationToken {
 
 model Vote {
   id           String   @id @default(cuid())
-  article      Article  @relation(fields: [articleId], references: [id])
-  articleId    String
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String
+  articleId    Int
+  userId       String   @db.Text
   vote         Boolean
-}
-
-model DailyTopArticles {
-  id         String    @id @default(cuid())
-  date       DateTime  @default(now()) //@db.Date() 
-  rank       Int
-  article    Article   @relation(fields: [articleId], references: [id])    
-  articleId  String 
+  article      Article  @relation(fields: [articleId], references: [id])
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 model Article {
-  id                String   @id @default(cuid())
-  url               String
-  source            String
-  publishedDate     String
-  keywords          String
-  author            String
+  id                Int      @id @default(autoincrement())
+  url               String   @db.Text
+  source            String   @db.Text
+  publishedDate     String   @db.Text
+  keywords          String   @db.Text
+  author            String   @db.Text
   summary           String   @db.Text        
   title             String   @db.Text
-  image             String?  
+  image             String?  @db.Text
   imageCaption      String?  @db.Text
   likes             Int      @default(0)
   dislikes          Int      @default(0)
-  dailyTopArticles  DailyTopArticles[]
+  date              DateTime @default(now())
+  rank              Int?
   vote              Vote[]
 }
 

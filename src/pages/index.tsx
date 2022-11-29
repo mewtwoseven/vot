@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import { useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
+import VotingWidget from "../components/VotingWidget";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
@@ -16,32 +17,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/icons/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2b4fe0] to-[#7481e1]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create  <span className="text-[hsl(280,100%,70%)]">T3</span> App
+          Vote  <span className="text-[hsl(232,75%,41%)]">on</span> Articles
           </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg font-prose">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg font-prose">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
+          <div className="flex items-center">
+            <VotingWidget />
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white font-prose">
@@ -60,7 +42,7 @@ export default Home;
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
 
-  const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
+  const { data: articles } = trpc.article.getArticles.useQuery(
     undefined, // no input
     { enabled: sessionData?.user !== undefined },
   );
@@ -69,7 +51,7 @@ const AuthShowcase: React.FC = () => {
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
+        {articles && <span> - {"test"}</span>}
       </p>
     </div>
   );

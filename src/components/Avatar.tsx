@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 
-const Avatar: React.FC = () => {
+const Avatar:React.FC = () => {
   const { data: sessionData } = useSession();
 
   return (
