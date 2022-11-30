@@ -19,9 +19,9 @@ async function main() {
   }
   const data = await getData()
   for (let i = 0; i < 10; i++) {
-    let results = data.results[i]
+    const results = data.results[i]
 
-    const article = await prisma.article.create({
+    await prisma.article.create({
       data: {
         title: results.title,
         rank: i + 1,
@@ -73,7 +73,7 @@ export const exampleRouter = router({
       }
       );
 
-      for (let article of articles) {
+      for (const article of articles) {
         arrayArticleId.push(article.id)
       }
 
