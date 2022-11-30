@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: pretty;
+  src: url(../../public/fonts/CascadiaCode.ttf);
+}
+@font-face {
+  font-family: prettier;
+  src: url(../../public/fonts/CascadiaCodeItalic.ttf);
+}
