@@ -23,14 +23,23 @@ async function main() {
 
     const article = await prisma.article.create({
       data: {
-        title: results.title, rank: i + 1, url: results.url, source: results.source, publishedDate: results.published_date, keywords: results.adx_keywords, author: results.byline, summary: results.abstract, imageCaption: results.media[0].caption, image: results.media[0]["media-metadata"][1].url
+        title: results.title,
+        rank: i + 1,
+        url: results.url,
+        source: results.source,
+        publishedDate: results.published_date,
+        keywords: results.adx_keywords,
+        author: results.byline,
+        summary: results.abstract,
+        imageCaption: results.media[0].caption,
+        image: results.media[0]["media-metadata"][1].url
       }
     })
   }
 }
 
 export const exampleRouter = router({
-  wgetArticle: publicProcedure
+  getArticles: publicProcedure
     // .input(z.object({ text: z.string().nullish() }).nullish())
     .query(() => {
       // async function anotherFunction() {
@@ -50,14 +59,56 @@ export const exampleRouter = router({
 
 
     }),
-  getArticle: publicProcedure.query(() => {
-    return prisma.article.findMany(
-      {
-      orderBy: {
-        id: 'desc',
-      },
-      take:10
-    }
-    );
-  }),
+  hasUserVoted: publicProcedure
+    .input(z.string())
+    // Pass in the user id on login to find hasVoted
+    .query(async (userIdData) => {
+      const arrayArticleId = [];
+      //Gets the 10 articles of the day and sends them back to the front end
+      const articles = await prisma.article.findMany({
+        orderBy: {
+          id: 'desc',
+        },
+        take: 10
+      }
+      );
+
+      for (let article of articles) {
+        arrayArticleId.push(article.id)
+      }
+
+      //Tells the front end which of these 10 articles has the user already voted on
+      const hasVoted = await prisma.vote.findMany(
+        {
+          where: {
+            userId: {
+              equals: userIdData.input,
+            },
+            articleId: {
+              gte: arrayArticleId[arrayArticleId.length - 1]
+            }
+          }
+        });
+      return {
+        articles,
+        hasVoted
+      }
+    }),
+
+
+  creatingVote: publicProcedure
+    .input(z.object({ userId: z.string(), articleId: z.number(), vote: z.boolean() }))
+    .query(async ({ input }) => {
+      console.log(input)
+      // the front end should send userId, articleId and vote result to create a vote
+      // If the user has already voted, the front end should prevent requests to the server
+      const createVote = await prisma.vote.create({
+        data: {
+          userId: input.userId,
+          articleId: input.articleId,
+          vote: input.vote,
+        }
+      })
+      return createVote;
+    }),
 });
